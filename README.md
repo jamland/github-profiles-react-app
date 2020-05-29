@@ -3,7 +3,7 @@
 Search over github profiles, show profile details and list of public repos, show details about repository.  
 `https://api.github.com` used to access github data.
 App can be navigated via url this way: `/:username/:repoId`.    
-🚀 Live Demo: [https://ikwkg.csb.app/](https://ikwkg.csb.app/)
+🚀  Live Demo: [https://ikwkg.csb.app/](https://ikwkg.csb.app/)
 
 ## How to run
 
