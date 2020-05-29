@@ -1,0 +1,21 @@
+.badge {
+  background: #f8f8f8;
+  display: flex;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 0.15em 0.5em;
+  white-space: nowrap;
+  align-items: center;
+  flex: 0;
+  max-width: 100px;
+}
+
+.badge svg {
+  margin-right: 0.75em;
+}
+
+.app {
+  padding: 0em 1em 1em;
+  max-width: 980px;
+  margin: 0 auto;
+}

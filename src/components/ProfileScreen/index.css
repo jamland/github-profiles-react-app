@@ -1,0 +1,6 @@
+@media (max-width: 620px) {
+  .row .column.profile-details {
+    width: 100%;
+    max-width: 100%;
+  }
+}
