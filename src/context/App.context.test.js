@@ -9,7 +9,7 @@ import { profile } from "../__tests__/data.mocks";
 const defaultState = {};
 
 describe("Context API", () => {
-  test("Should correctly update searchQuery and pass correct value ", () => {
+  test("Should correctly update searchQuery and pass correct value ", async () => {
     const { getByTestId, getByText } = render(
       <ContextProvider value={defaultState}>
         <TestContextSearchData />
@@ -19,7 +19,10 @@ describe("Context API", () => {
     const input = getByTestId("input");
     fireEvent.change(input, { target: { value: "facebook" } });
 
-    expect(getByText("facebook")).toBeInTheDocument();
+    // wait for appearance of elements after fetch
+    await waitFor(() => {
+      expect(getByText("facebook")).toBeInTheDocument();
+    });
   });
 
   test("Should correctly fetch / update profile data and pass it to components ", async () => {
@@ -54,7 +57,7 @@ const TestContextSearchData = () => {
       <input
         data-testid="input"
         type="text"
-        onChange={e => setSearchQuery(e.target.value)}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
     </>
   );

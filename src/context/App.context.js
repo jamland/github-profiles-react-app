@@ -27,7 +27,7 @@ const initialState = {
   repos: defaultState,
 };
 
-export const ContextProvider = props => {
+export const ContextProvider = (props) => {
   const { value: defaultPassedState } = props;
   const [state, setState] = useSetState({
     ...initialState,
@@ -38,7 +38,7 @@ export const ContextProvider = props => {
   // with debounce
   useDebounce(
     () => {
-      const searchHandler = async query => {
+      const searchHandler = async (query) => {
         if (query.trim() === "") {
           setLoadingState("suggestionList", false);
           return;
@@ -78,7 +78,7 @@ export const ContextProvider = props => {
     [state.searchQuery],
   );
 
-  const getUserProfile = async username => {
+  const getUserProfile = async (username) => {
     try {
       setErrorState("profile", null);
       setLoadingState("profile", true);
@@ -96,7 +96,7 @@ export const ContextProvider = props => {
     }
   };
 
-  const getUserRepos = async username => {
+  const getUserRepos = async (username) => {
     try {
       setErrorState("repos", null);
       setLoadingState("repos", true);
@@ -110,17 +110,23 @@ export const ContextProvider = props => {
     }
   };
 
-  const setUsernameToState = searchQuery => setState({ searchQuery });
+  const setUsernameToState = (searchQuery) => setState({ searchQuery });
 
-  const setSearchQuery = searchQuery => {
-    setState(prevState => {
-      if (prevState.searchQuery !== searchQuery)
-        setLoadingState("suggestionList", true);
-      return {
-        searchQuery,
-        profile: defaultState,
-        repos: defaultState,
-      };
+  const setSearchQuery = (searchQuery) => {
+    setState((prevState) => {
+      if (prevState.searchQuery !== searchQuery) {
+        // setLoadingState("suggestionList", true);
+        return {
+          searchQuery,
+          profile: defaultState,
+          repos: defaultState,
+          suggestionList: {
+            ...prevState.suggestionList,
+            isLoading: true,
+            isLoaded: false,
+          },
+        };
+      }
     });
   };
 
