@@ -7,6 +7,7 @@ export const AppContext = React.createContext(null);
 
 const CORS_ERROR_NAME = "TypeError";
 const CORS_ERROR_TEXT = "Failed to fetch";
+const NOT_FOUND = "Not Found";
 
 const defaultState = {
   isLoading: false,
@@ -44,13 +45,6 @@ export const ContextProvider = (props) => {
           return;
         }
 
-        // setState({
-        //   suggestionList: {
-        //     ...state.suggestionList,
-        //     isLoaded: false,
-        //   },
-        // });
-
         try {
           const result = await API.searchForProfiles(query);
           const data = await result.json();
@@ -86,7 +80,17 @@ export const ContextProvider = (props) => {
       const result = await API.getUserProfile(username);
       const data = await result.json();
 
-      setState({ profile: { data, isLoading: false, error: null } });
+      if (data.message === NOT_FOUND) {
+        setState({
+          profile: {
+            error: NOT_FOUND,
+            data: null,
+            isLoading: false,
+          },
+        });
+      } else {
+        setState({ profile: { data, isLoading: false, error: null } });
+      }
     } catch (error) {
       const ErrorMsg =
         error.message === CORS_ERROR_TEXT && error.name === CORS_ERROR_NAME
